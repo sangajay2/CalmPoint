@@ -1,0 +1,145 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║   🏥 PANIC ATTACK DETECTION SYSTEM - STATIC DEMO             ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+👋 WELCOME! Here's how to start:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 QUICKEST START (30 seconds):
+
+   1. Double-click: demo.html
+   2. That's it! Your demo is running in your browser
+   3. Explore all features from there
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 USING LOCAL SERVER (Recommended):
+
+   Windows/Mac/Linux:
+   
+   1. Open terminal/command prompt
+   2. Navigate to this folder:
+      cd /path/to/online
+   
+   3. Run one of these commands:
+   
+      Python 3:
+      python -m http.server 8000
+      
+      Python 2:
+      python -m SimpleHTTPServer 8000
+      
+      Node.js:
+      npx http-server -p 8000
+   
+   4. Open browser to: http://localhost:8000/demo.html
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 WHAT TO DO FIRST:
+
+   ✓ Start at demo.html (landing page)
+   ✓ Click "Main Dashboard" button
+   ✓ Try the AI chatbot - ask "how to calm down?"
+   ✓ Click "Yes" on panic question to trigger alert
+   ✓ Explore "Live Monitoring" page
+   ✓ Try "Calming Methods" breathing exercise
+   ✓ Check "History" to see logged episodes
+   ✓ Fill out "Profile" page
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 FILES IN THIS FOLDER:
+
+   🎬 START HERE:
+   ├─ demo.html ..................... Landing page with all links
+   
+   📄 MAIN PAGES:
+   ├─ index.html .................... Main dashboard + AI assistant
+   ├─ profile.html .................. User profile setup
+   ├─ monitoring.html ............... Live sensor monitoring
+   ├─ history.html .................. Episode history log
+   └─ calming_methods.html .......... Breathing + music therapy
+   
+   📚 DOCUMENTATION:
+   ├─ README.md ..................... Complete usage guide
+   ├─ MAPPING.md .................... Flask-to-static mapping
+   ├─ DEPLOY.md ..................... How to deploy online
+   └─ START_HERE.txt ................ This file!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🌍 DEPLOY ONLINE (FREE):
+
+   Fastest Way - Netlify Drop:
+   1. Visit: https://app.netlify.com/drop
+   2. Drag this entire folder onto the page
+   3. Get instant URL to share!
+   
+   Other Options:
+   - GitHub Pages (free hosting)
+   - Vercel (developer-friendly)
+   - Firebase Hosting (Google)
+   - Surge.sh (simple CLI)
+   
+   See DEPLOY.md for detailed instructions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ FEATURES:
+
+   ✅ AI Chatbot Assistant
+   ✅ Real-time Vital Monitoring (simulated)
+   ✅ Panic Attack Detection
+   ✅ Episode History Tracking
+   ✅ 4-7-8 Breathing Exercise
+   ✅ Emotion-Based Music Recommendations
+   ✅ Emergency Contact System
+   ✅ Physical Activity Mode
+   ✅ Fully Responsive Design
+   ✅ Works on All Devices
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 DEVICE COMPATIBILITY:
+
+   ✓ Desktop (Chrome, Firefox, Safari, Edge)
+   ✓ Tablet (iPad, Android)
+   ✓ Mobile (iOS, Android)
+   ✓ All Screen Sizes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 PRO TIPS:
+
+   • All data is simulated (no real sensors needed)
+   • Data persists in browser localStorage
+   • Works completely offline after first load
+   • No backend server required
+   • Safe to share publicly
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ NEED HELP?
+
+   📖 Read: README.md (detailed guide)
+   🗺️  Check: MAPPING.md (technical details)
+   🚀 Deploy: DEPLOY.md (hosting guide)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 READY TO START!
+
+   >>> Double-click: demo.html
+   
+   Or run: python -m http.server 8000
+   Then visit: http://localhost:8000/demo.html
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                        ENJOY YOUR DEMO! 🚀
+
+╚═══════════════════════════════════════════════════════════════╝

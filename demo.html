@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panic Attack Detection System - Demo Launcher</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2em;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 3em;
+            opacity: 0.9;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            margin-bottom: 3em;
+        }
+
+        .demo-card {
+            background-color: white;
+            color: #333;
+            padding: 2em;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: block;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .demo-card .icon {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        .demo-card h2 {
+            color: #667eea;
+            margin-bottom: 0.5em;
+        }
+
+        .demo-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .features {
+            background-color: rgba(255,255,255,0.1);
+            padding: 2em;
+            border-radius: 12px;
+            margin-bottom: 2em;
+        }
+
+        .features h3 {
+            margin-bottom: 1em;
+        }
+
+        .features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1em;
+        }
+
+        .features li {
+            padding: 0.5em;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .features li:before {
+            content: "✓ ";
+            font-weight: bold;
+            margin-right: 0.5em;
+        }
+
+        .info-box {
+            background-color: rgba(255,255,255,0.1);
+            padding: 1.5em;
+            border-radius: 8px;
+            margin-top: 2em;
+        }
+
+        .quick-start {
+            text-align: left;
+            background-color: rgba(255,255,255,0.1);
+            padding: 2em;
+            border-radius: 12px;
+            margin-top: 2em;
+        }
+
+        .quick-start h3 {
+            margin-bottom: 1em;
+        }
+
+        .quick-start ol {
+            margin-left: 2em;
+            line-height: 2;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Panic Attack Detection System</h1>
+        <p class="subtitle">Interactive Demo - No Backend Required</p>
+
+        <div class="features">
+            <h3>Key Features</h3>
+            <ul>
+                <li>AI-Powered Chatbot Assistant</li>
+                <li>Real-time Vital Signs Monitoring</li>
+                <li>Panic Attack Detection & Alerts</li>
+                <li>Episode History Tracking</li>
+                <li>Emotion-Based Music Therapy</li>
+                <li>4-7-8 Breathing Exercises</li>
+                <li>Emergency Contact System</li>
+                <li>Physical Activity Mode</li>
+            </ul>
+        </div>
+
+        <div class="demo-grid">
+            <a href="index.html" class="demo-card primary-btn">
+                <div class="icon">🏠</div>
+                <h2>Main Dashboard</h2>
+                <p>Start here! AI assistant, panic detection, and navigation hub</p>
+            </a>
+
+            <a href="profile.html" class="demo-card">
+                <div class="icon">👤</div>
+                <h2>User Profile</h2>
+                <p>Set up your profile and emergency contacts</p>
+            </a>
+
+            <a href="monitoring.html" class="demo-card">
+                <div class="icon">📊</div>
+                <h2>Live Monitoring</h2>
+                <p>View real-time sensor data: heart rate, temperature, SpO2</p>
+            </a>
+
+            <a href="history.html" class="demo-card">
+                <div class="icon">📜</div>
+                <h2>Episode History</h2>
+                <p>Track past panic attack episodes with detailed vital signs</p>
+            </a>
+
+            <a href="calming_methods.html" class="demo-card">
+                <div class="icon">🎵</div>
+                <h2>Calming Methods</h2>
+                <p>Emotion-based music and breathing exercises for relief</p>
+            </a>
+        </div>
+
+        <div class="quick-start">
+            <h3>🚀 Quick Start Guide</h3>
+            <ol>
+                <li><strong>Click "Main Dashboard"</strong> above to begin</li>
+                <li><strong>Try the AI Assistant</strong> - Ask "how to calm down?"</li>
+                <li><strong>Click "Yes"</strong> on panic question to trigger alert</li>
+                <li><strong>Explore "Live Monitoring"</strong> to see simulated sensor data</li>
+                <li><strong>Visit "Calming Methods"</strong> for breathing exercises</li>
+                <li><strong>Check "History"</strong> to view logged episodes</li>
+            </ol>
+        </div>
+
+        <div class="info-box">
+            <p><strong>📝 Note:</strong> This is a fully functional static demo. All data is simulated and stored locally in your browser. No server or backend required!</p>
+            <p style="margin-top: 1em;"><strong>💡 Tip:</strong> Best viewed on desktop or tablet. Mobile friendly too!</p>
+        </div>
+
+        <div style="margin-top: 2em; font-size: 0.9em; opacity: 0.8;">
+            <p>Built with ❤️ for panic attack support and mental health awareness</p>
+        </div>
+    </div>
+
+    <script>
+        // Add some subtle animation on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.demo-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

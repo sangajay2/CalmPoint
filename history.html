@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panic Attack History</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 2em;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2em;
+            color: #333;
+        }
+
+        .history-log {
+            margin-bottom: 2em;
+        }
+
+        .log-entry {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 1.5em;
+            border-left: 4px solid #dc3545;
+        }
+
+        .log-entry p {
+            margin-bottom: 0.5em;
+            line-height: 1.6;
+        }
+
+        .log-entry strong {
+            color: #666;
+            display: inline-block;
+            width: 140px;
+        }
+
+        .timestamp {
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 0.8em 1.5em;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .button-link:hover {
+            background-color: #5a6268;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 3em;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            color: #666;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .generate-btn {
+            padding: 0.8em 1.5em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 0.5em;
+        }
+
+        .generate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .clear-btn {
+            padding: 0.8em 1.5em;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 0.5em;
+        }
+
+        .clear-btn:hover {
+            background-color: #c82333;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+
+        .stat-card {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 0.5em;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Panic Attack History</h1>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Episodes</h3>
+                <div class="value" id="total-episodes">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>This Week</h3>
+                <div class="value" id="this-week">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>This Month</h3>
+                <div class="value" id="this-month">0</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="generate-btn" onclick="generateSampleData()">Generate Sample Data</button>
+            <button class="clear-btn" onclick="clearHistory()">Clear History</button>
+        </div>
+
+        <div class="history-log" id="history-log">
+            <div class="no-data">
+                <p>No panic attack episodes recorded.</p>
+                <p style="margin-top: 1em; font-size: 0.9em;">Click "Generate Sample Data" to see demo data</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="button-link">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        let historyData = [];
+
+        // Sample history data
+        const sampleHistory = [
+            {
+                timestamp: "2025-01-15 14:23:45",
+                vitals: {
+                    heart_rate: 118,
+                    temperature: 37.2,
+                    spo2: 96
+                }
+            },
+            {
+                timestamp: "2025-01-14 09:15:22",
+                vitals: {
+                    heart_rate: 115,
+                    temperature: 37.4,
+                    spo2: 95
+                }
+            },
+            {
+                timestamp: "2025-01-12 16:45:10",
+                vitals: {
+                    heart_rate: 112,
+                    temperature: 37.1,
+                    spo2: 97
+                }
+            },
+            {
+                timestamp: "2025-01-10 11:30:55",
+                vitals: {
+                    heart_rate: 120,
+                    temperature: 37.3,
+                    spo2: 96
+                }
+            },
+            {
+                timestamp: "2025-01-08 20:12:33",
+                vitals: {
+                    heart_rate: 117,
+                    temperature: 37.2,
+                    spo2: 95
+                }
+            }
+        ];
+
+        function renderHistory() {
+            const historyLog = document.getElementById('history-log');
+            
+            if (historyData.length === 0) {
+                historyLog.innerHTML = `
+                    <div class="no-data">
+                        <p>No panic attack episodes recorded.</p>
+                        <p style="margin-top: 1em; font-size: 0.9em;">Click "Generate Sample Data" to see demo data</p>
+                    </div>
+                `;
+                updateStats(0, 0, 0);
+                return;
+            }
+
+            let html = '';
+            historyData.forEach(entry => {
+                html += `
+                    <div class="log-entry">
+                        <p class="timestamp">${entry.timestamp}</p>
+                        <p><strong>Heart Rate:</strong> ${entry.vitals.heart_rate} bpm</p>
+                        <p><strong>Temperature:</strong> ${entry.vitals.temperature} °C</p>
+                        <p><strong>SpO2:</strong> ${entry.vitals.spo2} %</p>
+                    </div>
+                `;
+            });
+
+            historyLog.innerHTML = html;
+            
+            // Calculate stats
+            const total = historyData.length;
+            const thisWeek = historyData.filter(entry => {
+                const date = new Date(entry.timestamp);
+                const now = new Date();
+                const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                return date > weekAgo;
+            }).length;
+            
+            const thisMonth = historyData.filter(entry => {
+                const date = new Date(entry.timestamp);
+                const now = new Date();
+                return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+            }).length;
+
+            updateStats(total, thisWeek, thisMonth);
+        }
+
+        function updateStats(total, week, month) {
+            document.getElementById('total-episodes').textContent = total;
+            document.getElementById('this-week').textContent = week;
+            document.getElementById('this-month').textContent = month;
+        }
+
+        function generateSampleData() {
+            historyData = [...sampleHistory];
+            renderHistory();
+        }
+
+        function clearHistory() {
+            historyData = [];
+            renderHistory();
+        }
+
+        // Load from localStorage if available
+        const saved = localStorage.getItem('panicHistory');
+        if (saved) {
+            historyData = JSON.parse(saved);
+        }
+
+        // Initial render
+        renderHistory();
+
+        // Save to localStorage when data changes
+        function saveToStorage() {
+            localStorage.setItem('panicHistory', JSON.stringify(historyData));
+        }
+    </script>
+</body>
+</html>

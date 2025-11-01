@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Monitoring - Panic Attack Detection</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 2em;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 2em;
+            color: #333;
+        }
+
+        .sensor-data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+
+        .sensor-card {
+            background-color: white;
+            padding: 2em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .sensor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .sensor-card h2 {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 0.5em;
+        }
+
+        .sensor-card p {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .heart-rate { color: #dc3545 !important; }
+        .temperature { color: #ffc107 !important; }
+        .spo2 { color: #28a745 !important; }
+
+        .button-link {
+            display: inline-block;
+            margin-top: 2em;
+            padding: 0.8em 1.5em;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            font-weight: bold;
+        }
+
+        .button-link:hover {
+            background-color: #5a6268;
+        }
+
+        .status-info {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2em;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5em 1em;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: #28a745;
+            margin-top: 0.5em;
+        }
+
+        .status-badge.warning {
+            background-color: #ffc107;
+        }
+
+        .status-badge.danger {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Sensor Data Monitoring</h1>
+        
+        <div class="status-info">
+            <h3>System Status</h3>
+            <p id="status-text">Monitoring Active</p>
+            <span id="status-badge" class="status-badge">Normal</span>
+        </div>
+
+        <div class="sensor-data-grid">
+            <div class="sensor-card">
+                <h2>Heart Rate</h2>
+                <p class="heart-rate"><span id="heart-rate">--</span> <small>bpm</small></p>
+            </div>
+            <div class="sensor-card">
+                <h2>Temperature</h2>
+                <p class="temperature"><span id="temperature">--</span> <small>°C</small></p>
+            </div>
+            <div class="sensor-card">
+                <h2>SpO2</h2>
+                <p class="spo2"><span id="spo2">--</span> <small>%</small></p>
+            </div>
+        </div>
+
+        <a href="index.html" class="button-link">← Back to Dashboard</a>
+    </div>
+
+    <script>
+        const heartRateEl = document.getElementById('heart-rate');
+        const temperatureEl = document.getElementById('temperature');
+        const spo2El = document.getElementById('spo2');
+        const statusBadge = document.getElementById('status-badge');
+        const statusText = document.getElementById('status-text');
+
+        // Simulate sensor data
+        function generateSensorData() {
+            const heartRate = Math.floor(Math.random() * (120 - 60 + 1)) + 60;
+            const temperature = (Math.random() * (37.5 - 36.5) + 36.5).toFixed(1);
+            const spo2 = Math.floor(Math.random() * (100 - 95 + 1)) + 95;
+
+            return { heartRate, temperature, spo2 };
+        }
+
+        function updateStatus(heartRate, temperature, spo2) {
+            if (heartRate > 100 || temperature > 37.2 || spo2 < 96) {
+                statusBadge.textContent = 'Warning';
+                statusBadge.className = 'status-badge warning';
+                statusText.textContent = 'Vitals showing elevated readings';
+            } else if (heartRate > 110 || temperature > 37.4 || spo2 < 95) {
+                statusBadge.textContent = 'Alert';
+                statusBadge.className = 'status-badge danger';
+                statusText.textContent = 'Unusual vital signs detected';
+            } else {
+                statusBadge.textContent = 'Normal';
+                statusBadge.className = 'status-badge';
+                statusText.textContent = 'Monitoring Active - All vitals normal';
+            }
+        }
+
+        function updateData() {
+            const data = generateSensorData();
+            
+            heartRateEl.textContent = data.heartRate;
+            temperatureEl.textContent = data.temperature;
+            spo2El.textContent = data.spo2;
+
+            updateStatus(data.heartRate, parseFloat(data.temperature), data.spo2);
+        }
+
+        // Update every 2 seconds
+        setInterval(updateData, 2000);
+        
+        // Initial update
+        updateData();
+    </script>
+</body>
+</html>

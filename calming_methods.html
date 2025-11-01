@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calming Methods - Emotion-Based Music</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 2em;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+
+        .card {
+            background-color: white;
+            padding: 2em;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .sensor-data h2, .emotion h2, .music-player h2 {
+            color: #667eea;
+            margin-bottom: 1em;
+        }
+
+        .sensor-reading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8em;
+            margin: 0.5em 0;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .sensor-reading strong {
+            color: #666;
+        }
+
+        .sensor-reading span {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        #emotion {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #764ba2;
+            padding: 0.5em;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: inline-block;
+            min-width: 200px;
+        }
+
+        .music-player {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .music-player h2 {
+            color: white;
+        }
+
+        #current-song {
+            font-size: 1.2em;
+            margin: 1em 0;
+            padding: 1em;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 1em;
+        }
+
+        .breathing-exercise {
+            grid-column: 1 / -1;
+            background-color: white;
+            padding: 2em;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .breathing-exercise h2 {
+            color: #667eea;
+            margin-bottom: 1em;
+        }
+
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            margin: 2em auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            transition: transform 4s ease-in-out;
+        }
+
+        .breathing-circle.inhale {
+            transform: scale(1.5);
+        }
+
+        .breathing-circle.hold {
+            transform: scale(1.5);
+        }
+
+        .breathing-circle.exhale {
+            transform: scale(1);
+        }
+
+        .breathing-instructions {
+            font-size: 1.2em;
+            margin-top: 1em;
+            color: #666;
+        }
+
+        .button-link {
+            display: inline-block;
+            margin-top: 2em;
+            padding: 1em 2em;
+            background-color: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .button-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .emotion-badge {
+            display: inline-block;
+            padding: 0.5em 1em;
+            border-radius: 20px;
+            margin: 0.5em;
+            font-weight: bold;
+        }
+
+        .Happy { background-color: #ffc107; color: white; }
+        .Sad { background-color: #6c757d; color: white; }
+        .Calm { background-color: #28a745; color: white; }
+        .Excited { background-color: #dc3545; color: white; }
+        .Anxious { background-color: #ff6b6b; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Emotion-Based Calming & Music Recommendation</h1>
+        
+        <div class="content-grid">
+            <div class="card sensor-data">
+                <h2>Live Sensor Data</h2>
+                <div class="sensor-reading">
+                    <strong>Heart Rate:</strong>
+                    <span id="heart-rate">--</span>
+                </div>
+                <div class="sensor-reading">
+                    <strong>Temperature:</strong>
+                    <span id="temperature">--</span>
+                </div>
+                <div class="sensor-reading">
+                    <strong>SpO2:</strong>
+                    <span id="spo2">--</span>
+                </div>
+            </div>
+
+            <div class="card emotion">
+                <h2>Detected Emotion</h2>
+                <div id="emotion">Unknown</div>
+                <p style="margin-top: 1em; color: #666;">Based on your vital signs</p>
+            </div>
+
+            <div class="card music-player">
+                <h2>🎶 Now Playing</h2>
+                <p id="current-song">Selecting music...</p>
+                <p style="font-size: 0.9em; margin-top: 1em; opacity: 0.9;">
+                    Music is selected based on your current emotional state
+                </p>
+            </div>
+
+            <div class="breathing-exercise">
+                <h2>4-7-8 Breathing Exercise</h2>
+                <div class="breathing-circle" id="breathing-circle">
+                    <span id="breathing-text">Ready</span>
+                </div>
+                <div class="breathing-instructions" id="breathing-instructions">
+                    Click the circle to start the breathing exercise
+                </div>
+                <button onclick="startBreathingExercise()" style="margin-top: 1em; padding: 0.8em 2em; background-color: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; font-weight: bold;">
+                    Start Exercise
+                </button>
+            </div>
+        </div>
+
+        <a href="index.html" class="button-link">← Back to Dashboard</a>
+    </div>
+
+    <script>
+        const heartRateEl = document.getElementById('heart-rate');
+        const temperatureEl = document.getElementById('temperature');
+        const spo2El = document.getElementById('spo2');
+        const emotionEl = document.getElementById('emotion');
+        const currentSongEl = document.getElementById('current-song');
+
+        const musicDatabase = {
+            Happy: ["Uplifting Vibes - Happy Music", "Joyful Melody", "Sunshine Song"],
+            Sad: ["Comforting Embrace - Sad Music", "Melancholic Peace", "Gentle Healing"],
+            Calm: ["Peaceful Waves - Calm Music", "Serene Moments", "Tranquil Mind"],
+            Excited: ["Energy Flow - Excited Music", "Dynamic Rhythm", "Power Boost"],
+            Anxious: ["Soothing Relief - Anxiety Music", "Calm Your Mind", "Peace Within"]
+        };
+
+        function classifyEmotion(heartRate, temperature, spo2) {
+            if (heartRate > 100) {
+                return "Anxious";
+            } else if (heartRate > 85) {
+                return "Excited";
+            } else if (heartRate < 70 && spo2 > 97) {
+                return "Calm";
+            } else if (temperature > 37.2 || spo2 < 96) {
+                return "Anxious";
+            } else {
+                return "Happy";
+            }
+        }
+
+        function selectMusic(emotion) {
+            const songs = musicDatabase[emotion] || musicDatabase["Calm"];
+            return songs[Math.floor(Math.random() * songs.length)];
+        }
+
+        function updateData() {
+            // Simulate sensor data
+            const heartRate = Math.floor(Math.random() * (120 - 60 + 1)) + 60;
+            const temperature = (Math.random() * (37.5 - 36.5) + 36.5).toFixed(1);
+            const spo2 = Math.floor(Math.random() * (100 - 95 + 1)) + 95;
+
+            heartRateEl.textContent = heartRate + ' bpm';
+            temperatureEl.textContent = temperature + ' °C';
+            spo2El.textContent = spo2 + ' %';
+
+            // Classify emotion
+            const emotion = classifyEmotion(heartRate, parseFloat(temperature), spo2);
+            emotionEl.textContent = emotion;
+            emotionEl.className = emotion;
+
+            // Select music
+            const song = selectMusic(emotion);
+            currentSongEl.textContent = song;
+        }
+
+        // Breathing exercise
+        let breathingActive = false;
+
+        async function startBreathingExercise() {
+            if (breathingActive) return;
+            
+            breathingActive = true;
+            const circle = document.getElementById('breathing-circle');
+            const text = document.getElementById('breathing-text');
+            const instructions = document.getElementById('breathing-instructions');
+
+            for (let i = 0; i < 5; i++) {
+                // Inhale (4 seconds)
+                circle.className = 'breathing-circle inhale';
+                text.textContent = 'Inhale';
+                instructions.textContent = 'Breathe in slowly through your nose...';
+                await sleep(4000);
+
+                // Hold (7 seconds)
+                circle.className = 'breathing-circle hold';
+                text.textContent = 'Hold';
+                instructions.textContent = 'Hold your breath...';
+                await sleep(7000);
+
+                // Exhale (8 seconds)
+                circle.className = 'breathing-circle exhale';
+                text.textContent = 'Exhale';
+                instructions.textContent = 'Breathe out slowly through your mouth...';
+                await sleep(8000);
+            }
+
+            circle.className = 'breathing-circle';
+            text.textContent = 'Complete';
+            instructions.textContent = 'Great job! You can start again whenever you need.';
+            breathingActive = false;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Update data every 3 seconds
+        setInterval(updateData, 3000);
+        
+        // Initial update
+        updateData();
+    </script>
+</body>
+</html>

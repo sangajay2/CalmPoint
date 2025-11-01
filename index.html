@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panic Attack Detection - Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 2em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .ai-assistant-container {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2em;
+        }
+
+        .chat-window {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 1em;
+            margin-bottom: 1em;
+            text-align: left;
+        }
+
+        .chat-message {
+            margin-bottom: 0.5em;
+        }
+
+        .chat-message.user {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .chat-message.ai {
+            color: #28a745;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 1em;
+        }
+
+        #ai-input {
+            flex-grow: 1;
+            padding: 0.8em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        #ai-send-btn {
+            padding: 0.8em 1.5em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #ai-send-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2em;
+        }
+
+        .status-indicator {
+            padding: 0.8em 1.5em;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: white;
+            background-color: #28a745;
+        }
+
+        .status-indicator.panic {
+            background-color: #dc3545;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .activity-mode {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .question-container {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 2em;
+        }
+
+        .panic-btn {
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin: 0 0.5em;
+        }
+
+        .panic-btn.yes {
+            background-color: #dc3545;
+        }
+
+        .panic-btn.yes:hover {
+            background-color: #c82333;
+        }
+
+        .panic-btn.no {
+            background-color: #28a745;
+        }
+
+        .panic-btn.no:hover {
+            background-color: #218838;
+        }
+
+        .im-okay-container {
+            margin-bottom: 2em;
+        }
+
+        #im-okay-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 1em 2em;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #im-okay-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .links-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5em;
+            margin-bottom: 2em;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ai-assistant-container card">
+            <h3>Premium AI Assistant</h3>
+            <div id="chat-window" class="chat-window"></div>
+            <div class="chat-input">
+                <input type="text" id="ai-input" placeholder="Ask for advice (e.g., 'how to calm down?')">
+                <button id="ai-send-btn">Send</button>
+            </div>
+        </div>
+
+        <div class="status-container">
+            <div id="panic-status" class="status-indicator">
+                Vitals Stable
+            </div>
+            <div class="activity-mode">
+                <label for="activity-toggle">Physical Activity Mode</label>
+                <label class="switch">
+                    <input type="checkbox" id="activity-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+
+        <div id="im-okay-container" class="im-okay-container hidden">
+            <button id="im-okay-btn">I'm Okay</button>
+        </div>
+
+        <div class="question-container">
+            <h2>Are you having a panic attack?</h2>
+            <button id="yes-panic-btn" class="panic-btn yes">Yes</button>
+            <button id="no-panic-btn" class="panic-btn no">No</button>
+        </div>
+
+        <div class="links-container">
+            <a href="monitoring.html" class="card-link">
+                <div class="card">
+                    <h2>Live Monitoring</h2>
+                    <p>View your live heart rate, temperature, and SpO2.</p>
+                </div>
+            </a>
+            <a href="history.html" class="card-link">
+                <div class="card">
+                    <h2>History</h2>
+                    <p>View past panic attack episodes and vitals.</p>
+                </div>
+            </a>
+            <a href="calming_methods.html" class="card-link">
+                <div class="card">
+                    <h2>Need to Calm Down?</h2>
+                    <p>Breathing guide, soothing music, or grounding talk.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Simulated data
+        let panicTriggered = false;
+        let physicalActivityMode = false;
+
+        const panicStatusEl = document.getElementById('panic-status');
+        const activityToggle = document.getElementById('activity-toggle');
+        const imOkayContainer = document.getElementById('im-okay-container');
+        const imOkayBtn = document.getElementById('im-okay-btn');
+        const yesPanicBtn = document.getElementById('yes-panic-btn');
+        const noPanicBtn = document.getElementById('no-panic-btn');
+        const aiInput = document.getElementById('ai-input');
+        const aiSendBtn = document.getElementById('ai-send-btn');
+        const chatWindow = document.getElementById('chat-window');
+
+        // AI Chat functionality
+        function addChatMessage(message, sender) {
+            const messageEl = document.createElement('div');
+            messageEl.classList.add('chat-message', sender);
+            messageEl.textContent = message;
+            chatWindow.appendChild(messageEl);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function getAIResponse(question) {
+            const q = question.toLowerCase();
+            if (q.includes('how to calm down') || q.includes('breathing')) {
+                return "Try this simple breathing exercise: Inhale slowly for 4 seconds, hold your breath for 7 seconds, and then exhale slowly for 8 seconds. Repeat this a few times.";
+            } else if (q.includes('symptoms') || q.includes('panic attack')) {
+                return "Common symptoms of a panic attack include a racing heart, shortness of breath, dizziness, and a feeling of intense fear. If you feel this way, please use the calming methods or contact a professional.";
+            } else if (q.includes('hello') || q.includes('hi')) {
+                return "Hello! I'm here to help. How are you feeling?";
+            } else {
+                return "I'm sorry, I don't have an answer for that right now. Try asking about calming down or symptoms of a panic attack.";
+            }
+        }
+
+        function sendAiMessage() {
+            const question = aiInput.value;
+            if (!question) return;
+
+            addChatMessage(question, 'user');
+            aiInput.value = '';
+
+            setTimeout(() => {
+                const response = getAIResponse(question);
+                addChatMessage(response, 'ai');
+            }, 500);
+        }
+
+        aiSendBtn.addEventListener('click', sendAiMessage);
+        aiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendAiMessage();
+            }
+        });
+
+        // Panic status functionality
+        function updateUI() {
+            if (panicTriggered) {
+                panicStatusEl.textContent = 'Panic Attack Trigger Detected!';
+                panicStatusEl.classList.add('panic');
+                imOkayContainer.classList.remove('hidden');
+            } else {
+                panicStatusEl.textContent = 'Vitals Stable';
+                panicStatusEl.classList.remove('panic');
+                imOkayContainer.classList.add('hidden');
+            }
+            activityToggle.checked = physicalActivityMode;
+        }
+
+        yesPanicBtn.addEventListener('click', () => {
+            panicTriggered = true;
+            updateUI();
+        });
+
+        noPanicBtn.addEventListener('click', () => {
+            panicTriggered = false;
+            updateUI();
+        });
+
+        imOkayBtn.addEventListener('click', () => {
+            panicTriggered = false;
+            updateUI();
+        });
+
+        activityToggle.addEventListener('change', () => {
+            physicalActivityMode = activityToggle.checked;
+        });
+
+        // Initial welcome message
+        addChatMessage("Hello! I am your premium AI assistant. How can I help you today?", 'ai');
+    </script>
+</body>
+</html>
